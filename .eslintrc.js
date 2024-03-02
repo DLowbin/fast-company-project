@@ -23,7 +23,7 @@ module.exports = {
   rules: {
     semi: [2, 'always'],
     'comma-dangle': ['error', 'only-multiline'],
-    'space-before-function-paren': ['error', 'never'],
+    'space-before-function-paren': ['error', { anonymous: 'always', named: 'never' }],
     'no-unused-vars': 0,
   },
 };

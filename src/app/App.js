@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import api from './API/index';
-import SearchStatus from '../app/components/searchStatus';
-// import BookMark from '../app/components/bookmark';
+import API from './API/index2';
 import Users from './components/users';
 
 const App = () => {
-  const [users, setUsers] = useState(api.users.fetchAll());
+  const [users, setUsers] = useState();
+  useEffect(() => {
+    API.users.fetchAll().then((data) => setUsers(data));
+  }, []);
   const handleDelete = (userId) => {
     setUsers((prevState) => prevState.filter((user) => user._id !== userId));
   };
   const handleToggleBookmark = (userId) => {
     setUsers(
       users.map((user) => {
-        //почему возвращаем ...user, а не просто user?
+        // почему возвращаем ...user, а не просто user?
         if (userId === user._id) return { ...user, bookmark: !user.bookmark };
         return user;
       })
@@ -20,10 +22,11 @@ const App = () => {
   };
 
   return (
-    <div>
-      <SearchStatus length={users.length} />
-      <Users users={users} onDelete={handleDelete} onToggleBookMark={handleToggleBookmark} />
-    </div>
+    users && (
+      <div>
+        <Users users={users} onDelete={handleDelete} onToggleBookMark={handleToggleBookmark} />
+      </div>
+    )
   );
 };
 
