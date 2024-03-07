@@ -3,31 +3,31 @@ import PropTypes from 'prop-types';
 
 const TableHeader = ({ onSort, selectedSort, columns }) => {
   const handleSort = (item) => {
-    if (selectedSort.iter === item) {
+    if (selectedSort.path === item) {
       // почему ...selectedSort?
       onSort({
         ...selectedSort,
         order: selectedSort.order === 'asc' ? 'desc' : 'asc',
       });
     } else {
-      onSort({ iter: item, order: 'asc' });
+      onSort({ path: item, order: 'asc' });
     }
   };
   return (
-    // как исправить такое форматирование от prettier???????
+    // как исправить такое форматирование от prettier?
     <thead>
       <tr>
         {Object.keys(columns).map((column) => (
           <th
             onClick={
-              columns[column].iter
+              columns[column].path
                 ? () => {
-                    handleSort(columns[column].iter);
+                    handleSort(columns[column].path);
                   }
                 : undefined
             }
-            // что за конструкция {...{ role: columns[column].iter && 'button' }} ??
-            {...{ role: columns[column].iter && 'button' }}
+            // что за конструкция {...{ role: columns[column].path && 'button' }} ??
+            {...{ role: columns[column].path && 'button' }}
             scope="col"
             key={column}>
             {columns[column].name}

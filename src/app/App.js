@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import api from './API/index';
-import API from './API/index2';
+// import api from './API/index';
+import API from './API/index';
 import Users from './components/users';
 
 const App = () => {

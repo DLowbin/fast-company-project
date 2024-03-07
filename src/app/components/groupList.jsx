@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// почему деструктуризируем items?
+// почему деструктуризируем items и прочее?
 const GroupList = ({ items, valueProperty, contentProperty, onItemSelect, selectedItem }) => {
   if (!Array.isArray(items)) {
     return (
@@ -12,8 +12,7 @@ const GroupList = ({ items, valueProperty, contentProperty, onItemSelect, select
               className={'list-group-item' + (items[item] === selectedItem ? ' active' : '')}
               key={items[item][valueProperty]}
               onClick={() => onItemSelect(items[item])}
-              role="button"
-            >
+              role="button">
               {items[item][contentProperty]}
             </li>
           );
@@ -28,8 +27,7 @@ const GroupList = ({ items, valueProperty, contentProperty, onItemSelect, select
           key={item[valueProperty]}
           className={'list-group-item' + (item === selectedItem ? ' active' : '')}
           onClick={() => onItemSelect(item)}
-          role="button"
-        >
+          role="button">
           {item[contentProperty]}
         </li>
       ))}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Pagination from './pagination';
 import PropTypes from 'prop-types';
 // import API from '../API/index';
-import API from '../API/index2';
+import API from '../API';
 import GroupList from './groupList';
 import SearchStatus from './searchStatus';
 import UserTable from './usersTable';
@@ -38,7 +38,10 @@ const Users = ({ users, ...rest }) => {
     ? users.filter((user) => JSON.stringify(user.profession) === JSON.stringify(selectedProf))
     : users;
   const count = filteredUsers.length;
-  const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order]);
+
+  // Почему сортировка работает, если в sortBy не path а iter
+
+  const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
   const userCrop = paginate(sortedUsers, currentPage, pageSize);
   const clearFilter = () => {
     setSelectedProf();
