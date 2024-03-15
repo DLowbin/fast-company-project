@@ -1,33 +1,39 @@
-import React, { useEffect, useState } from 'react';
-// import api from './API/index';
-import API from './API/index';
-import Users from './components/users';
+import React from 'react';
+import { Route, useHistory, Switch, Redirect } from 'react-router-dom';
+import NavBar from './components/ui/NavBar';
+import Main from './layouts/Main';
+import Login from './layouts/Login';
+import Users from './layouts/Users';
 
 const App = () => {
-  const [users, setUsers] = useState();
-  useEffect(() => {
-    API.users.fetchAll().then((data) => setUsers(data));
-  }, []);
-  const handleDelete = (userId) => {
-    setUsers((prevState) => prevState.filter((user) => user._id !== userId));
-  };
-  const handleToggleBookmark = (userId) => {
-    setUsers(
-      users.map((user) => {
-        // почему возвращаем ...user, а не просто user?
-        if (userId === user._id) return { ...user, bookmark: !user.bookmark };
-        return user;
-      })
-    );
-  };
-
   return (
-    users && (
-      <div>
-        <Users users={users} onDelete={handleDelete} onToggleBookMark={handleToggleBookmark} />
-      </div>
-    )
+    <>
+      <NavBar />
+      <Switch>
+        {/* <Route path="/:userId?" render={(props) => <UserPage {...props} />} /> */}
+        <Route path="/users/:userId?/:edit?" component={Users} />
+        <Route path="/login/:type?" exact component={Login} />
+        <Route path="/" exact component={Main} />
+        {/* <Redirect to="/" /> */}
+      </Switch>
+    </>
   );
 };
 
 export default App;
+
+// <div>
+//   <NavBar />
+//   <h1>App</h1>
+//   <Switch>
+//     <Route path="/" exact component={Home} />
+//     <Route path="/dashboard/stats" component={Stats} />
+//     <Route path="/dashboard" component={Dashboard} />
+//     <Route path="/login" component={Login} />
+//     {/* <Route path="/posts/:postId?" render={(props) => <Posts {...props} />} /> */}
+//     {/* Как передаются параметры в оcmponent={Posts}? Почему работает ? */}
+//     <Route path="/posts/:postId?" component={Posts} />
+//     <Route path="/404" component={NotFound} />
+//     <Redirect to="/404" />
+//   </Switch>
+// </div>;

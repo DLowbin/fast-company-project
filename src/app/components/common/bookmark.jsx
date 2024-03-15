@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// ...rest - прояснить
+// ...rest - прояснить +
 const BookMark = ({ status, ...rest }) => {
   return (
     <button {...rest}>

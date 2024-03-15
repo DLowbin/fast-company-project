@@ -1,6 +1,6 @@
 import React from 'react';
-import BookMark from './bookmark';
-import Qualitie from './qualitie';
+import BookMark from './common/bookmark';
+import Qualitie from './ui/qualities/qualitie';
 import PropTypes from 'prop-types';
 
 const User = ({
@@ -27,7 +27,7 @@ const User = ({
       <td>{rate} /5</td>
       <td>
         <BookMark status={bookmark} onClick={() => onToggleBookMark(_id)} />
-        {/* Почему onToggleBookmark через callback? */}
+        {/* Почему onToggleBookmark через callback?+ */}
       </td>
       <td>
         <button type="button" className="btn btn-danger" onClick={() => onDelete(_id)}>

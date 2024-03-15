@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import User from './user';
-import TableHeader from './tableHeader';
-import TableBody from './tableBody';
-import BookMark from './bookmark';
-import QualitiesList from './qualitiesList';
+import User from '../user';
+import Table from '../common/table';
+import BookMark from '../common/bookmark';
+import Qualities from './qualities';
+import { Link } from 'react-router-dom';
 
 const UserTable = ({ users, selectedSort, onSort, onToggleBookMark, onDelete, ...rest }) => {
   const columns = {
-    name: { path: 'name', name: 'Имя' },
+    name: {
+      path: 'name',
+      name: 'Имя',
+      component: (user) => <Link to={`/users/${user._id}`}>{user.name}</Link>,
+    },
     qualities: {
       name: 'Качества',
-      component: (user) => <QualitiesList qualities={user.qualities} />,
+      component: (user) => <Qualities qualities={user.qualities} />,
     },
     professions: { path: 'profession.name', name: 'Профессия' },
     completedMeetings: { path: 'completedMeetings', name: 'Встретился, раз' },
@@ -24,7 +28,7 @@ const UserTable = ({ users, selectedSort, onSort, onToggleBookMark, onDelete, ..
       ),
     },
     delete: {
-      // Обрати внимание: оборачиваем в КРУГЛЫЕ скобки
+      // Обрати внимание: оборачиваем в КРУГЛЫЕ скобки (метод)
       component: (user) => (
         <button type="button" className="btn btn-danger" onClick={() => onDelete(user._id)}>
           Удалить
@@ -33,17 +37,10 @@ const UserTable = ({ users, selectedSort, onSort, onToggleBookMark, onDelete, ..
     },
   };
   return (
-    <table className="table">
-      {/* что за конструкция {...{onSort, selectedSort, columns}} ?? */}
-      <TableHeader {...{ onSort, selectedSort, columns }} />
-      <TableBody {...{ columns, data: users }} />
-      {/* <tbody>
-        {users.map((user) => (
-          // почему передаем ...user, а не просто user?
-          <User key={user._id} {...rest} {...user} />
-        ))}
-      </tbody> */}
-    </table>
+    <Table onSort={onSort} selectedSort={selectedSort} columns={columns} data={users} />
+    /* что за конструкция {...{onSort, selectedSort, columns}} ?? */
+    // <TableHeader {...{ onSort, selectedSort, columns }} />
+    // <TableBody {...{ columns, data: users }} />
   );
 };
 

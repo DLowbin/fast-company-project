@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// почему деструктуризируем items и прочее?
+// почему деструктуризируем items и прочее?+
 const GroupList = ({ items, valueProperty, contentProperty, onItemSelect, selectedItem }) => {
   if (!Array.isArray(items)) {
     return (
       <ul className="list-group">
         {Object.keys(items).map((item) => {
-          console.log(item);
           return (
             <li
               className={'list-group-item' + (items[item] === selectedItem ? ' active' : '')}
